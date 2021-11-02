@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "vercel-node-builder",
+  "version": "0.0.1",
+  "generators": {
+    "vercel-node-builder": {
+      "factory": "./src/generators/vercel-node-builder/generator",
+      "schema": "./src/generators/vercel-node-builder/schema.json",
+      "description": "vercel-node-builder generator"
+    }
+  }
+}

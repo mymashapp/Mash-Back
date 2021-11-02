@@ -1,0 +1,20 @@
+{
+  "rules": {
+    "node_server": {
+      ".read": false,
+      ".write": false
+    },
+    "messages": {
+      "$msg_grp_id": {
+        ".read": "root.child('messages').child($msg_grp_id).child('users').child(auth.uid).val() == true",
+        "msgs": {
+          "$msg_id": {
+            ".indexOn": ["timestamp"]
+          }
+        }
+      }
+    },
+    ".read": false,
+    ".write": false
+  }
+}

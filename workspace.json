@@ -1,0 +1,161 @@
+{
+  "version": 2,
+  "projects": {
+    "my-mash-app-backend": {
+      "root": "apps/my-mash-app-backend",
+      "sourceRoot": "apps/my-mash-app-backend/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/my-mash-app-backend",
+            "main": "apps/my-mash-app-backend/src/main.ts",
+            "tsConfig": "apps/my-mash-app-backend/tsconfig.app.json",
+            "assets": ["apps/my-mash-app-backend/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": false,
+              "extractLicenses": false,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/my-mash-app-backend/src/environments/environment.ts",
+                  "with": "apps/my-mash-app-backend/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "my-mash-app-backend:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/my-mash-app-backend/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/my-mash-app-backend"],
+          "options": {
+            "jestConfig": "apps/my-mash-app-backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "my-mash-app-test-back-end": {
+      "projectType": "application",
+      "root": "apps/my-mash-app-test-back-end",
+      "sourceRoot": "apps/my-mash-app-test-back-end/src",
+      "prefix": "mashapptest",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/my-mash-app-test-back-end",
+            "index": "apps/my-mash-app-test-back-end/src/index.html",
+            "main": "apps/my-mash-app-test-back-end/src/main.ts",
+            "polyfills": "apps/my-mash-app-test-back-end/src/polyfills.ts",
+            "tsConfig": "apps/my-mash-app-test-back-end/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/my-mash-app-test-back-end/src/favicon.ico",
+              "apps/my-mash-app-test-back-end/src/assets"
+            ],
+            "styles": ["apps/my-mash-app-test-back-end/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/my-mash-app-test-back-end/src/environments/environment.ts",
+                  "with": "apps/my-mash-app-test-back-end/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "my-mash-app-test-back-end:build:production"
+            },
+            "development": {
+              "browserTarget": "my-mash-app-test-back-end:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "my-mash-app-test-back-end:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/my-mash-app-test-back-end/src/**/*.ts",
+              "apps/my-mash-app-test-back-end/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "vercel-node-builder": "libs/vercel-node-builder"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  },
+  "defaultProject": "my-mash-app-backend",
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "none",
+      "e2eTestRunner": "none"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "none"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  }
+}

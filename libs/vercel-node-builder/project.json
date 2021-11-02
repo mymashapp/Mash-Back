@@ -1,0 +1,47 @@
+{
+  "root": "libs/vercel-node-builder",
+  "sourceRoot": "libs/vercel-node-builder/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/vercel-node-builder/**/*.ts"]
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/vercel-node-builder",
+        "tsConfig": "libs/vercel-node-builder/tsconfig.lib.json",
+        "packageJson": "libs/vercel-node-builder/package.json",
+        "main": "libs/vercel-node-builder/src/index.ts",
+        "assets": [
+          "libs/vercel-node-builder/*.md",
+          {
+            "input": "./libs/vercel-node-builder/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/vercel-node-builder/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/vercel-node-builder",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./libs/vercel-node-builder",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  },
+  "tags": ["Node Compiler using @vercel/ncc"]
+}
